@@ -25,43 +25,10 @@ app.use((req,res,next)=>{
     
 });
 
-
-app.get('/', (req, res) => {
-    const name = req.cookies.username;
-    if(name){
-    res.render('index', {name});
-    }else{
-        res.redirect('/hello');
-    }
-});
-
-app.get('/cards', (req, res) => {
-    res.locals.prompt = "who is buried in grant's tomb?"
-    res.render('card', { hint: "think about whose tomb it is." });
-
-});
-
-app.get('/hello', (req, res) => {
-    const name =req.cookies.username;
-    if(name){
-        res.redirect('/');
-    }else{
-    res.render('hello');
-    }
-});
-app.post('/hello', (req, res) => {
-    // console.dir(req.body);
-    res.cookie('username',req.body.username);
-    res.redirect('/');
-    
-    // res.render('hello');
-});
-
-app.post('/goodbye', (req,res)=>{
-    res.clearCookie('username');
-    res.redirect('/hello');
-});
-
+const mainRoutes = require('./routes');
+const cardRoutes = require('./routes/cards');
+app.use(mainRoutes);
+app.use('/cards',cardRoutes);
 // 404 handler:
 app.use((req,res,next)=>{
     const error = new Error('Not Found');
