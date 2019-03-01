@@ -1,7 +1,7 @@
-extends layout.pug
+extends app
 
-block content
-    form(action='/hello',method ='POST')
-        label Please enter name here
-            input(type='text' name ='username')
-        button(type='submit') SUBMIT!
+block intro
+    form.namecard-form(action='/hello',method ='POST')
+        label.namecard-prompt Please enter name here
+            input.namecard-name(type='text' name ='username')
+        button.namecard-submit(type='submit') SUBMIT!
